@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="/css/main.css">
+   <title>Document</title>
+</head>
+
+<body>
+   <header class="header">
+      <div class="header-inner container">
+         <h1 class="header-inner-items">
+            Filter
+         </h1>
+         <div class="header-inner-items">
+            <form id="formEl">
+               <div class="rowCheck">
+                  <div class="row">
+                     <input type="checkbox" name="users" id="u" checked>
+                     <label for="u">Users</label>
+                  </div>
+                  <div class="row">
+                     <input type="checkbox" name="books" id="b">
+                     <label for="b">Books</label>
+                  </div>
+                  <div class="row">
+                     <input type="checkbox" name="films" id="f">
+                     <label for="f">Films</label>
+                  </div>
+               </div>
+               <input type="search" id="elInput" autocomplete="off">
+               <button id="btn" type="submit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="feather feather-search">
+                     <circle cx="11" cy="11" r="8"></circle>
+                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg></button>
+            </form>
+            <ul class="down"></ul>
+         </div>
+      </div>
+   </header>
+
+   <section class="section1">
+      <ul class="section1-inner container">
+
+      </ul>
+   </section>
+
+
+   <script>
+      let elInput = document.querySelector('#elInput')
+      let btn = document.querySelector('#btn')
+      let box = document.querySelector('.section1-inner')
+      let down = document.querySelector('.down')
+      let formEl = document.querySelector('#formEl')
+      let u = document.querySelector('#u')
+      let b = document.querySelector('#b')
+      let f = document.querySelector('#f')
+
+
+      formEl.addEventListener('submit', () => {
+         down.textContent = "";
+      })
+
+      btn.addEventListener('click', (e) => {
+         e.preventDefault();
+         (async () => {
+            let response = await fetch('/all', {
+               method: "POST",
+               headers: {
+               search: elInput.value,
+               chek1: u.checked ? ('users') : (''),
+               chek2: b.checked ? ('books') : (''),
+               chek3: f.checked ? ('films') : ('')
+               }
+            })
+            let res = await response.json()
+            down.textContent = "";
+            box.textContent = ''
+            res.forEach(element => {
+
+               let row = document.createElement('li')
+               let sp = document.createElement('img')
+               let info = document.createElement('div')
+               row.setAttribute('class', 'block')
+               info.setAttribute('class', 'info')
+               for (let key in element) {
+                  let one = document.createElement('h4')
+                  one.textContent = element[key]
+                  info.appendChild(one)
+                  if (key == 'first_name') {
+                     sp.setAttribute('src', '/images/1.svg')
+                  } else if (key == 'book_name') {
+                     sp.setAttribute('src', '/images/3.svg')
+                  } else if (key == 'film_name') {
+                     sp.setAttribute('src', '/images/2.svg')
+                  }
+               }
+
+               row.appendChild(sp)
+               row.appendChild(info)
+               box.appendChild(row)
+            });
+
+            let block = document.querySelectorAll('.block')
+
+            block.forEach(elem => {
+               elem.addEventListener('click', (e) => {
+                  e.preventDefault()
+                  elem.classList.toggle('active')
+               })
+            })
+         })()
+
+
+      })
+
+
+
+
+
+      elInput.addEventListener('keyup', () => {
+         (async () => {
+            let response = await fetch('/all', {
+               method: "POST",
+               headers: {
+                  search: elInput.value,
+                  chek1: u.checked ? ('users') : (''),
+                  chek2: b.checked ? ('books') : (''),
+                  chek3: f.checked ? ('films') : ('')
+               }
+            })
+            let res = await response.json()
+
+            down.textContent = ""
+            res.forEach(element => {
+               let row = document.createElement('li')
+               row.setAttribute('class', 'block')
+               let sp = document.createElement('img')
+               let info = document.createElement('div')
+               info.setAttribute('class', 'info')
+               for (let key in element) {
+                  let one = document.createElement('h4')
+                  one.textContent = element[key]
+                  info.appendChild(one)
+                  if (key == 'first_name') {
+                     sp.setAttribute('src', '/images/1.svg')
+                  } else if (key == 'book_name') {
+                     sp.setAttribute('src', '/images/3.svg')
+                  } else if (key == 'film_name') {
+                     sp.setAttribute('src', '/images/2.svg')
+                  }
+               }
+               row.appendChild(sp)
+               row.appendChild(info)
+               down.append(row)
+            });
+
+            let block = document.querySelectorAll('.block')
+
+            block.forEach(elem => {
+            elem.addEventListener('click', (e) => {
+            e.preventDefault()
+            elem.classList.toggle('active')
+            })
+            })
+
+
+         })()
+      })
+   </script>
+</body>
+
+</html>

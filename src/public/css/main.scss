@@ -1,0 +1,305 @@
+body {
+   margin: 0;
+   padding: 0;
+   font-family: sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+   margin: 0;
+   padding: 0;
+}
+
+.container {
+   max-width: 1140px;
+   width: 100%;
+   margin: 0 auto;
+   padding: 0 15px;
+}
+
+.header {
+
+
+   &-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+
+      
+      &-items {
+         .rowCheck {
+            position: absolute;
+            display: flex;
+            left: -400px;
+            label {
+               padding: 10px 20px;
+               border: 0.5px solid gray;
+               border-radius: 50px;
+            }
+
+            .row {
+               margin: 0 10px;
+            }
+
+            input {
+               width: 10px;
+               height: 10px;
+               display: none;
+
+               &:checked + label {
+                  background: #107edf;
+                  color: white;
+                  border: 0.5px solid transparent;
+               }
+            }
+         }
+         position: relative;
+         .down {
+            position: absolute;
+            width: 100%;
+            padding: 0;
+            border: 1px solid gray;
+            border-radius: 20px;
+            overflow: hidden;
+            max-height: 200px;
+            overflow-y: scroll;
+            &::-webkit-scrollbar {
+               width: 5px;
+            }
+
+            &::-webkit-scrollbar-track {
+               background: transparent;
+            }
+
+            &::-webkit-scrollbar-thumb {
+               background-color: #107edf;
+               border-radius: 20px;
+            }
+
+            li {
+               list-style: none;
+               display: flex;
+               align-items: center;
+               padding: 10px 5px;
+               box-sizing: border-box;
+               width: 100%;
+               border-bottom: 1px solid gray;
+               cursor: pointer;
+               background: white;
+
+               
+
+               &:last-child {
+                  border: none;
+               }
+
+               &:hover{
+                  background: rgb(180, 179, 179);
+
+               }
+
+               span {
+                  img {
+                     width: 25px;
+                     height: 25px;
+                  }
+               }
+
+               .info {
+                  margin-left: 10px;
+                  h4 {
+
+                     &:first-child{
+                        display: none
+                     }
+                     font-size: 12px;
+
+                     &:nth-child(3){
+                        font-size: 11px;
+                     }
+                     &:nth-child(4) {
+                        font-size: 9px;
+                     }
+                  }
+               }
+
+               &.active {
+                  position: fixed;
+                  width: 100%;
+                  height: 100vh;
+                  top: 0;
+                  left: 0;
+                  bottom: 0;
+                  right: 0;
+                  background: white;
+                  z-index: 100000;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex-direction: column;
+
+                  h4 {
+                     font-size: 25px;
+
+                     &:nth-child(3) {
+                        font-size: 25px;
+                     }
+                     &:nth-child(4) {
+                        font-size: 18px;
+                     }
+                  }
+
+                  img {
+                     width: 400px;
+                     height: 400px;
+                  }
+
+                  .info {
+                     margin-top: 20px;
+                  }
+
+                  &:hover {
+                     background: white;
+                  }
+               }
+            }
+         }
+         form {
+            display: flex;
+            align-items: center;
+            background-color: rgba(97, 97, 97, 0.719);
+            overflow: hidden;
+            border-radius: 50px;
+         input {
+            padding: 10px 20px;
+            box-sizing: border-box;
+            width: 400px;
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+         }
+
+         button {
+            border-radius: 50px;
+            background-color: rgba(97, 97, 97, 0.719);
+            width: 40px;
+            height: 40px;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            position: relative;
+            z-index: 2;
+
+            &::before {
+               content: "";
+               position: absolute;
+               width: 40px;
+               height: 40px;
+               background: linear-gradient(to bottom, white, transparent);
+               left: 0;
+               top: 0;
+               border-radius: 50%;
+               z-index: -1;
+               animation: anime 3s infinite;
+               transition: all ease 0.5s;
+
+
+            }
+
+            @keyframes anime {
+               0% {
+                  transform: rotate(0deg);
+               }100% {
+                  transform: rotate(3600deg);
+               }
+            }
+
+            svg {
+               width: 20px;
+               height: 20px;
+            }
+         }}
+      }
+   }
+}
+
+.section1{
+   margin-top: 50px;
+
+   &-inner {
+      display: flex;
+      flex-wrap: wrap;
+
+
+      li {
+         margin-left: 20px;
+         box-shadow: 0 0 10px gray;
+         padding: 10px;
+         box-sizing: border-box;
+         display: flex;
+         flex-direction: column;
+         width: 200px;
+         list-style: none;
+         margin-bottom: 20px;
+         cursor: pointer;
+         transition: all ease 0.5s;
+
+         &:hover {
+            transform: translateY(-15px);
+            transition: all ease 0.5s;
+         }
+
+         &.active {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: white;
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+               width: 400px;
+               height: 400px;
+            }
+
+            .info {
+               margin-top: 20px;
+            }
+
+            &:hover {
+               transform: none;
+            }
+         }
+
+         span {
+            min-width: 200px;
+            img {
+               mix-width: 200px;
+            }
+         }
+
+         .info {
+            text-align: center;
+            h4 {
+               &:first-child {
+                  display: none;
+               }
+               margin-top: 4px;
+            }
+         }
+      }
+   }
+}
