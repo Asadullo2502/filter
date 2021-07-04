@@ -15,4 +15,4 @@ app.use(all)
 
 
 
-app.listen(PORT, (req, res) => console.log(host+":"+PORT))
+app.listen(PORT, (req, res) => host+":"+PORT)
